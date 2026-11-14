@@ -2,16 +2,22 @@ pipeline {
     agent { label 'sameur' }
 
     stages {
-        stage('Checkout') {
+        
+        stage('Code Clone from Github') {
             steps {
-                checkout scm
+                sh 'Cloning code from github'
+                git branch: main',
+                git url: 'https://github.com/Sameurxd/django-notes-app.git'
             }
         }
+        
         stage('Test') {
             steps {
                 sh 'echo Hello from Jenkins agent'
                 sh 'whoami'
             }
         }
+
+        
     }
 }
