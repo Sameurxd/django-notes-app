@@ -4,7 +4,7 @@ pipeline {
     environment {
         IMAGE_NAME = "imsameur/django-note-app"
         IMAGE_TAG = "${BUILD_NUMBER}"
-        IMAGE = "${IMAGE_NAME}:${IMAGE}"
+        IMAGE = "${IMAGE_NAME}:${IMAGE_TAG}"
     }
 
     stages {
