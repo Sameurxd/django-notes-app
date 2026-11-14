@@ -29,6 +29,56 @@ pipeline {
             }
         }
 
+        stage('Push to Docker Hub') {
+            steps {
+                echo 'pushing docker image'
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub-credentials',
+                        usernameVariable: 'USER',
+                        passwordVariable: 'PASS'
+                    )
+                ]) {
+                    sh '''
+                        echo "$PASS" | docker login \
+                        -u "$USER" --password-stdin
+
+                        docker push $IMAGE
+
+                        docker logout
+                      '''  
+                }
+
+                echo 'push completed successfully'
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         
     }
 }
