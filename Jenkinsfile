@@ -1,6 +1,12 @@
 pipeline {
     agent { label 'sameur' }
 
+    environment {
+        IMAGE_NAME: "imsameur/django-note-app"
+        IMAGE_TAG: "${BUILD_NUMBER}"
+        IMAGE: "${IMAGE_NAME}:${IMAGE}"
+    }
+
     stages {
         
         stage('Code Clone from Github') {
@@ -12,10 +18,14 @@ pipeline {
             }
         }
         
-        stage('Test') {
+        stage('Build Docker Image') {
             steps {
-                sh 'echo Hello from Jenkins agent'
-                sh 'whoami'
+                echo 'Building Image'
+                sh '''
+                    docker build -t $IMAGE.'
+                    docker tag $IMAGE $IMAGE_NAME:latest
+                '''
+                echo 'Building completed successfully'
             }
         }
 
