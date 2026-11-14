@@ -2,9 +2,9 @@ pipeline {
     agent { label 'sameur' }
 
     environment {
-        IMAGE_NAME: "imsameur/django-note-app"
-        IMAGE_TAG: "${BUILD_NUMBER}"
-        IMAGE: "${IMAGE_NAME}:${IMAGE}"
+        IMAGE_NAME = "imsameur/django-note-app"
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        IMAGE = "${IMAGE_NAME}:${IMAGE}"
     }
 
     stages {
