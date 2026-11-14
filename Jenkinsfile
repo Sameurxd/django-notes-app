@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'Building Image'
                 sh '''
-                    docker build -t $IMAGE.'
+                    docker build -t $IMAGE .
                     docker tag $IMAGE $IMAGE_NAME:latest
                 '''
                 echo 'Building completed successfully'
