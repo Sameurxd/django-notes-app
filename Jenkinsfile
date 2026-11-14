@@ -7,7 +7,7 @@ pipeline {
             steps {
                 sh 'Cloning code from github'
                 git branch: 'main',
-                git url: 'https://github.com/Sameurxd/django-notes-app.git'
+                url: 'https://github.com/Sameurxd/django-notes-app.git'
             }
         }
         
