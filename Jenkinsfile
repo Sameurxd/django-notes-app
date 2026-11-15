@@ -57,10 +57,9 @@ pipeline {
             steps{
                 echo 'Deploying image to agent started'
                 sh '''
-                    docker run -d \
-                    --name django-note-app \
-                    -p 8000:8000 \
-                    $IMAGE
+                    cd /root/django-notes-app
+                    docker compose up -d --no-build
+                    curl -fsS http://127.0.0.1:8000/api/notes/ || exit 1
                 '''
 
                 echo 'Deployment completed successfully'                
