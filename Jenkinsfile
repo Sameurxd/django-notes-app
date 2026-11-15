@@ -53,18 +53,32 @@ pipeline {
             }
         }
 
-        stage('Deploy on Agent Sameur'){
-            steps{
+        stage('Deploy on Agent Sameur') {
+            steps {
                 echo 'Deploying image to agent started'
                 sh '''
-                    cd /root/django-notes-app
-                    docker compose up -d --no-build
-                    curl -fsS http://127.0.0.1:8000/api/notes/ || exit 1
+                    set -e
+                    cd /opt/django-notes-app
+                    export IMAGE_TAG=$IMAGE_TAG
+                    C="docker compose -f docker-compose.yml -f docker-compose.deploy.yml"
+
+                    echo "Deploying tag $IMAGE_TAG from Docker Hub"
+                    $C pull
+                    $C up -d --no-build
+                    $C ps
+
+                    for i in $(seq 1 20); do
+                        if curl -fsS --max-time 3 http://127.0.0.1:8000/api/notes/ >/dev/null; then
+                            echo "Smoke test OK - running tag $IMAGE_TAG"; exit 0
+                        fi
+                        echo "waiting for app... ($i/20)"; sleep 3
+                    done
+                    $C logs --tail 50 django_app
+                    exit 1
                 '''
-
-                echo 'Deployment completed successfully'                
+                echo 'Deployment completed successfully'
             }
-
+        }
         }
         
     }
