@@ -58,7 +58,7 @@ pipeline {
                 echo 'Deploying image to agent started'
                 sh '''
                     docker run -d \
-                    --name django-note-app:latest \
+                    --name django-note-app \
                     -p 8000:8000 \
                     $IMAGE
                 '''
