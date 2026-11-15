@@ -53,32 +53,20 @@ pipeline {
             }
         }
 
+        stage('Deploy on Agent Sameur'){
+            steps{
+                echo 'Deploying image to agent started'
+                sh '''
+                    docker run -d \
+                    --name django-note-app:latest \
+                    -p 8000:8000 \
+                    $IMAGE
+                '''
 
+                echo 'Deployment completed successfully'                
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+        }
         
     }
 }
