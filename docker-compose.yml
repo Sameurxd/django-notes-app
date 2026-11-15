@@ -3,7 +3,7 @@ version: "3.8"
 services:
   nginx:
     build: ./nginx
-    image: nginx
+    image: imsameur/django-note-app-nginx:${IMAGE_TAG:-latest}
     container_name: "nginx_cont"
     ports:
       - "80:80"
@@ -16,7 +16,7 @@ services:
   django_app:
     build:
       context: .
-    image: django_app
+    image: imsameur/django-note-app:${IMAGE_TAG:-latest}
     container_name: "django_cont"
     ports:
       - "8000:8000"
